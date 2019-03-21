@@ -95,8 +95,15 @@ Automatic merge failed; fix conflicts and then commit the result.
 git pull origin master (fetch+merge)    
 ```
 
+##加topics
+- Manage topics
+可以加些技术栈，显示高大上
+
+##给项目挂个外网
+- 点edit -> Website
+
 ## gh-pages分支来发布我们的静态页
-- 在项目中创建一个gh-pages的分支
+- 在项目中创建一个名叫gh-pages的分支
 - 将分支提到线上仓库
 - 找到提供给你的网站 settings github-pages
     ```
