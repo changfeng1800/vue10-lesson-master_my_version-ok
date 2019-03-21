@@ -1,0 +1,65 @@
+
+<!-- 1 2  3  4  5  6    -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>zhufeng http://www.zhufengpeixun.cn</title>
+  <style>
+    /* 要写成这样 router-link-active ，下面是别名 */
+    .active{color:red}
+  </style>
+</head>
+<body>
+<!--前端后端分离 后端只负责提供接口供前端调用，像跳转都是前端自己处理的
+hash模式: 带# 开发时使用hash 不会导致404 hash方式不支持seo   h5的history.pushState （上线采用h5的跳转）
+-->
+<div id="app">
+  <!--router-view是一个全局组件，可以直接使用-->
+  <!-- 下面这两种写法，点下去，#后面也会变，但是改成history模式没反应,提示找不到页面 -->
+  <!-- <a href= "#/home">首页</a> 
+  <a href= "#/list">列表页</a> -->
+
+  <router-link to="/home" tag="button">首页</router-link>
+  <router-link to="/list" tag="button">列表页</router-link>
+
+  <router-view></router-view>
+  <!-- 上面是vue提供的，会把router的东西放到这里，也就是rou -->
+</div>
+<script src="node_modules/_vue@2.5.16@vue/dist/vue.js"></script>
+<!--必须放在vue的后面-->
+<script src="node_modules/_vue-router@3.0.1@vue-router/dist/vue-router.js"></script>
+<script>
+  let home = {template:'<div>首页</div>'};
+  let list = {template:'<div>列表页</div>'};
+  let routes = [ // 路由的映射表 配置路径和组件的关系
+
+      {path:'/home',component:home}, // 配置的关系就是页面级组件    /带表路径，要路径，从#后面开始算，必须要加，才表示路径
+      {path:'/list',component:list} // 路径必须加/
+  ];
+  let router = new VueRouter({ // 引入vue-router自带VueRouter类
+      // mode:'history', // h5模式
+      routes,  //routes:routes :前面routes不能变，和el一样，名字固定
+      linkActiveClass:'active' // 更改默认样式的类名 默认叫router-link-active
+  });
+  let vm = new Vue({
+      el:'#app',
+      router,  //router 也不能变，为了少写个单词
+  });
+                                                                                                                                                                                                                                                                                                                                                                
+//
+//5-6 mp4
+//后端路由/前端路由，路由特点：访问不同的路径 ，就可以返回不同的结果
+//以前是1.html跳到2.html,多页面开发。
+//vue-router: spa single page application 现在流行前后端分离
+//h5的history.pushState，怎么用???，上线用
+//hash模式不支持SEO,开发用
+//router-link
+//开发用hash,上线用H5，我改了history怎么不行???
+
+
+</script>
+</body>
+</html>

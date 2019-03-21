@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>zhu http://www.zhufengpeixun.cn</title>
+</head>
+<body>
+<div id="app"></div>
+<script>
+  let oEles = document.getElementById('app');
+  let  oChildren = oEles.getElementsByTagName('p');
+  console.log(oChildren);
+  debugger;
+  let oP = document.createElement('p')
+  oEles.appendChild(oP)
+  console.log(oChildren);   //为什么变量没update,但是后面却有了
+</script>
+</body>
+</html>

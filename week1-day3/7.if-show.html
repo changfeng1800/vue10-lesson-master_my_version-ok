@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>zhu</title>
+</head>
+<body>
+<div id="app">
+    <!--template标签 是vue提供给我们的没有任何的实际意义，用来包裹元素用的，template在Dom中会消失 v-show不支持template(写了也没用，跟没写一样),只有v-if使用-->
+    <!-- v-show 不支持 else ??? -->
+    <!-- v-if 和 v-else连着写 -->
+    <template v-if="true">
+        <div>我很帅</div>
+        <div>我很帅</div>
+        <div>我很帅</div>
+        <div>我很帅</div>
+    </template>
+    <div v-else>我非常帅</div>
+    <button @click="cut=!cut">点我啊</button>
+    <!--默认情况下在切换dom时相同的结构会被复用，如果不需要复用 需要加key-->
+    <!-- 下面两组结构长的一样 点时只有字和lable在变，里面写个"你好"，点了"你好"还在，vue认为是一个人。（所以必须加了key） -->
+    <template v-if="cut">
+        <!-- <label for="reg">注册</label>  这样写页面加载可以获取焦点，试一试-->
+        <!-- <input type="text" key="1"> -->
+
+        <!-- 下面两组结构长的一样 点时只有字和lable在变，里面写个"你好"，点了"你好"还在，vue认为是一个人。（所以必须加了key） -->
+        <label>注册</label>
+        <input type="text" key="1">
+    </template>
+    <template v-else>
+        <label>登陆</label>
+        <input type="text" key="2">
+    </template>
+</div>
+<script src="node_modules/_vue@2.5.16@vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            cut:true,
+            flag:false
+        }
+    })
+</script>
+</body>
+</html>
+

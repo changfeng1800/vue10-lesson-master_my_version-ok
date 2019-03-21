@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>zhu http://www.zhufengpeixun.cn</title>
+</head>
+<body>
+<div id="app">
+  <brother1></brother1>
+  <brother2></brother2>
+</div>
+<script src="../node_modules/_vue@2.5.16@vue/dist/vue.js"></script>
+<script>
+  let EventBus = new Vue;   //加这一句就可以用了
+  console.log(EventBus)
+  let brother1 = {
+      template:'<div>{{color}} <button @click="change">变绿</button></div>',
+      data(){
+        return {color:'绿色',old:'绿色'}
+      },
+      methods:{
+        change(){
+            EventBus.$emit('changeGreen',this.old);
+        }
+      },
+      created(){                  //小心，回调函数中的this都是window,所以这里用箭头函数
+          EventBus.$on('changeRed',(val)=>{ // 页面一加载兄弟1长个耳朵听，耳朵要写到created里面
+              this.color = val;
+          })
+      }
+  };
+  let brother2 = {
+      template:'<div>{{color}} <button @click="change">变红</button></div>',
+      created(){
+          EventBus.$on('changeGreen',(val)=>{   
+            this.color = val;
+          })
+      },
+      methods:{
+        change(){
+            EventBus.$emit('changeRed',this.old)    //名字绝对不能相同，因为在同一个bus上
+        }
+      },
+      data(){
+          return {color:'红色',old:'红色'}
+      }
+  };
+  let vm = new Vue({
+      el:'#app',
+      components:{
+          brother1,brother2
+      }
+  })
+
+//ok
+//5-5 eventBug.mp4
+//组件都有自己的作用域，兄弟间数据传递怎么办 （用eventBus,但是不用，了解即可，只适合极简单的项目，这种项目也不存在!!!）
+//只能点两次
+//EventBus使用三步曲 1 let EventBus = new Vue; 
+//                  2 EventBus.$emit('changeGreen',this.old);
+//                  3 EventBus.$on('changeRed',(val)=
+
+
+</script>
+</body>
+</html>

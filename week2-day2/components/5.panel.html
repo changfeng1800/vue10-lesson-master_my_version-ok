@@ -1,0 +1,83 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>zhu http://www.zhufengpeixun.cn</title>
+  <link rel="stylesheet" href="../node_modules/_bootstrap@3.3.7@bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+<div id="app">
+  <!-- panel is the name of component -->
+  <panel type="warning" @say-title="parent">
+    <div slot="title">这是一篇vue的使用</div>
+    <div slot="content">内容区
+      <p>组件的属性传递</p>
+      <p>slot的用法</p>
+      <p>ref的使用</p>
+      <p>nextTick的用法</p>
+    </div>
+    <div>作者:zfpx</div>
+  </panel>
+</div>
+
+<template id="panel">
+                        <!-- ['pannel-'+type] 这里拼也可以，但是太low了，而且这里不要写太多计算地东西-->
+  <div class="panel" :class="[color]">
+    <div class="panel-heading" ref="head">
+      <slot name="title"></slot>
+    </div>
+    <div class="panel-body">
+      <slot name="content"></slot>
+    </div>
+    <div class="panel-footer">
+      <slot>匿名</slot>
+      <!-- 点我说标题，放到父级，所有都可以用 -->
+      <button @click="say">点我说标题</button>
+    </div>
+  </div>
+</template>
+<script src="../node_modules/_vue@2.5.16@vue/dist/vue.js"></script>
+<script>
+  let panel = {
+      template:'#panel',
+      computed:{
+          color(){return 'panel-'+this.type}
+      },
+      methods:{         //这里不写成sayTitle,测试失败
+          say(){this.$emit('say-title',this.$refs.head.innerText)}  //这里是DOM 操作
+      },
+      props:{
+        /* created() { //先走created还是props
+          console.log(this.type)  //真可以拿到噢
+        }, */
+          type:{ // this.type = 'primary'子不能更改父组件传递的属性，数据单向传递
+              type:[String],
+              default:'default'
+          }
+      }
+  };
+  let vm = new Vue({
+      el:'#app',
+      methods:{
+        parent(tit){
+          alert(tit);
+        }
+      },
+      components:{
+          panel
+      }
+  });
+
+// ok
+// 5-3 .slot mp4
+// 5-4 组件的循环 mp4
+// 看官方教程：单向数据流，可以处理props数据,子不能更改父组件传递的属性，数据单向传递(不要尝试修改父组件传过来的数据)
+// slot用法
+// emit:发布的名字不能用驼峰，不能用大写的方式，事件名字有严格要求，必须一样，和component不一样
+// ref放在DOM上取的是DOM，放在组件上取的是实例
+
+</script>
+</body>
+</html>

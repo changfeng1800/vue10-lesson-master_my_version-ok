@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>zhu http://www.zhufengpeixun.cn</title>
+</head>
+<body>
+<div id="app">
+  父亲：{{money}}
+  <child :m="money" @update:m="val=>this.money=val"></child>
+  <!-- <child :m.sync="money"></child> -->
+  <!--写的时候我们还是按照原有的写法即可 语法糖 -->
+</div>
+<script src="node_modules/_vue@2.5.16@vue/dist/vue.js"></script>
+<script>
+  let vm = new Vue({
+      el:'#app',
+      data:{money:400},
+      components:{
+          child:{
+              props:['m'],
+              template:'<div>儿子:{{m}} <button @click="getMoney()">多要钱</button></div>',
+              methods:{
+                  getMoney(){          //:前面空格都不能有
+                      this.$emit('update:m',800);// 触发自己的自定义事件，让父亲的方法执行
+                  }
+              }
+          }
+      }
+  })
+
+//ok
+//video:???
+//sync 
+//sync是同步的意思
+//语法糖 ：干活累了，给个糖，一个简便写法
+//这里写法也要不一样：this.$emit('update:m',800)，订阅问题这样写也是一样的：@update:m="val=>this.money=val"
+
+</script>
+</body>
+</html>

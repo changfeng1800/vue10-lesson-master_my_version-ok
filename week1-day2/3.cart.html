@@ -1,0 +1,157 @@
+<!-- me:2-7 2-8  2-9  .mp4 -->
+<!-- 这个不看了，直接看4.computed好了 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>zhufeng http://www.zhufengpeixun.cn</title>
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+  <style>
+    .container .row table tr td{vertical-align: middle}
+  </style>
+</head>
+<body>
+<div id="app">
+  <!--bootstrap 就是个样式表 栅格化布局，为了实现响应式 默认12列 （有一些框架可能是24列）-->
+  <!--常见的样式 基本样式 + 增强样式-->
+  <!--default 灰色 success 绿色 danger 红色 warning 警告色 info浅蓝色 primary 蓝色  bootstrap上手最容易-->
+  <!--vue的ui（界面）框架 iview,mintui（elemFE 移动）,elementui  一般我都会在github搜索这些-->
+
+  <!-- container容器，默认占原来10列 -->
+  <div class="container">  
+              <!-- ??? -->
+    <!--每一行又会拥有12列-->
+    <div class="row">
+      <table class="table table-hover table-bordered">
+        <caption class="h2 text-warning text-center">zhu购物车</caption>
+        <tr>
+          <!--click点击时 checkbox的状态还没有改变 所以拿到的总是相反的，change可以保证只当值变化后再触发函数-->
+          <!-- ???为什么下面的全选用 th -->
+          <th>全选 <input type="checkbox" v-model="checkAll" @change="change"></th>  
+           <!-- 为嘛不到click事件??? 用alert测试，你就知道了  -->
+          <td>商品</td>
+          <td>单价</td>
+          <td>数量</td>
+          <td>小计</td>
+          <td>操作</td>
+        </tr>
+        <!-- 不要少写空格 一般我们写上index -->
+        <tr v-for="(product,index) in products">
+          <!-- 看到input就会想到v-model -->
+          <td>
+            <input type="checkbox"
+                   v-model="product.isSelected"
+                   @change="checkOne"
+            >
+          </td>
+          <td>
+            <!-- : === v-bind 指令：动态绑定数据 这样后面变成表达式了-->
+            <!-- {{}}不能用在属性里面，属性取变量用v-bind/: -->
+            <img :src="product.productCover" :title="product.productName">
+            {{product.productInfo}}  <!-- 在外面取用 {{}} -->
+            
+          </td>
+          <td>
+            {{product.productPrice}}
+          </td>
+          <td>
+            <!-- .number是让输入框的值变成数字类型 .lazy当输入框失去焦点时更新数据(看Vue控制台可以看到数据不变，失去焦点才更新) ??? number lazy???    -->
+            <!-- 数量可修改 inpute用v-model -->
+            <!-- number只能输入数字 先要设置type=number才能用 .number 不加,在控制台里看到是String -->
+            <input type="number" v-model="product.productCount" min="1">
+          </td>
+          <td>
+            <!--过滤器 原数据不变的情况，只是改变显示的效果 管道符-->
+            <!-- 不用过滤器，小数点后面太多 -->
+            {{product.productCount*product.productPrice | toFixed_my(2)}}
+          </td>
+          <!-- btn 按钮的基础样式 -->
+          <td><button class="btn btn-danger" @click="remove(product)">删除</button></td>
+        </tr>
+        <tr>
+          <!--{{sum()}} 数据一变化就会重新调用此函数 算出最新的结果,不会缓存上一次的结果computed可以解决这个问题-->
+          <td colspan="6">总价格:{{sum() | toFixed_my(2)}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="node_modules/_vue@2.5.16@vue/dist/vue.js"></script>
+<!--基于promise的-->
+<script src="node_modules/axios/dist/axios.js"></script>
+<script>
+  let vm = new Vue({
+      el:'#app',
+      // 专门用来发送ajax的方法
+      filters:{ //可以有好多的自定义过滤器，方法什么时候调啊？写了就会调
+        //这里名字随便起，重了也没关系
+        toFixed_my(input,param1){ // 这里的this指向的是window，这里不能用this
+            return '￥'+input.toFixed(param1); // input代表的是管道符前面的内容 param1代表的是toFixed中传递的参数  ???
+        }
+      },
+      created(){ // 在数据被初始化后会调用，this指向指的也是vm实例,钩子函数
+          //this.getData(); //ajax异步，执行慢，数据半天才得到
+          //this.checkOne() 所以写在这里不靠谱
+      },
+      methods:{
+          sum(){ // 求和函数    //这里也可以写return //这样写有性能问题，没有缓存，执行次数太多。
+              return  this.products.reduce((prev,next)=>{
+                  console.log(1000000);
+                  if(!next.isSelected)return prev; // 如果当前没被选中，就不加当前这一项    //不会停止，只是return了箭头函数
+                  return prev+next.productPrice*next.productCount;
+              },0);
+          },
+
+          //用搜不要用滑，善于用工具.
+          checkOne(){ //根据下面点击的结果控制上面全选的结果
+              this.checkAll = this.products.every(item=>item.isSelected); ///every 找false与some相反
+          },
+          change(){
+              // 根据当前自己的状态设置 其他人的状态 实现全选和反选
+              //alert(this.checkAll)
+              //forEach不仅是把值拿到，还可以修每一项，因为这里的item是对象，是引用
+              this.products.forEach(item=>item.isSelected=this.checkAll); //??? isSelected难道类似input的value no,products里面的isSelected属性
+          },
+          remove(p){ // p代表的是当前点击的这一项（注意下面的比较是地址比较） [xxx,ooo,qqq,ppp,p]  我们就不用splice了，这个有问题，数据塌陷，每次删一次就要 --,也性能浪费
+              this.products = this.products.filter(item=>item!==p);   //删除某一项也可以用fieter 对象和对象可以比较吗??? 两个 
+          },                                                          //对象比较空间地址OK,不是比值 {} === {} 这个永远不同，不同地址，对象和对象不能比较
+
+          getData(){ // 初始化方法
+              // Promise 解决回调问题的
+              axios.get('./carts.json').then(res=>{ //success
+                  console.log('carts.json')
+                  console.log(res.data)
+                  this.products = res.data; //获取数据 需要的是res.data
+                  this.checkOne(); //数据获取完成后给 checkAll赋予默认值，checkAll显示错误
+              },err=>{ //error
+                  console.log(err);
+              });
+          }
+      },
+      data:{
+          products:[
+            {
+              "isSelected": true,
+              "productCover": "https://img10.360buyimg.com/cms/s80x80_jfs/t6094/107/710811867/382815/4d54717/592bf165N755a88f0.jpg",
+              "productName": "深入浅出Node.js",
+              "productInfo": "颜色：Node.js学习",
+              "productPrice": 57.8,
+              "productCount": 3
+            },
+            {
+              "isSelected": true,
+              "productCover": "https://img10.360buyimg.com/cms/s80x80_jfs/t6094/107/710811867/382815/4d54717/592bf165N755a88f0.jpg",
+              "productName": "深入浅出Node.js",
+              "productInfo": "颜色：Node.js学习",
+              "productPrice": 57.8,
+              "productCount": 3
+            }
+          ],
+          checkAll:false, // 是否全选
+      },
+  })
+</script>
+</body>
+</html>

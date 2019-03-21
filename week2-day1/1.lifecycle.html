@@ -1,0 +1,47 @@
+<!-- 1  2  3  4  5  6  7  8（看不懂，再去看视频吧）  9 -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>zhufeng http://www.zhufengpeixun.cn</title>
+</head>
+<body>
+<div id="app">
+</div>
+<script src="node_modules/_vue@2.5.16@vue/dist/vue.js"></script>
+<script>
+  // 声明周期：beforeCreate created 出生前、出生后 data在created时，才放进云了
+  //         beforeMount  mounted  数据有了，还没扔到页面上了
+  //         beforeUpdate updated  页面更新前，更新后
+  //         beforeDestroy destroyed
+  let vm = new Vue({ // 根实例，初始化时会调用很多方法（钩子函数，就是回调函数而已）
+      beforeCreate(){
+          debugger   //设置端点，这是好东西啊
+      }, //第1步. 此方法用不到
+      data:{a:1,b:''},
+      created(){ // 第2步.获取ajax，页面初始化操作，这时还没有DOM
+        debugger   //设置端点，这是好东西啊
+      },
+      template:'<div>{{a}}</div>', //4.如果有template属性会用模板替换掉外部html，只要有此属性app中的内容就没有任何意义了，只能有一个根元素，不能是文本节点
+
+      //没有el，有可能走不到这里了
+      beforeMount(){}, //没有什么实际意义
+      mounted(){},// 真实dom渲染完了，可以操作dom了，有Dom了，可以documentByID了 !!!
+      beforeUpdate(){ // 一般用watch来替换掉，这个不好用，因为这个不知道谁更新了
+      },
+      updated(){    //重新渲染DOM 虚拟DOM就是一个对象，和老对象比较。
+      },
+      beforeDestroy(){ // 这个有用，可以清除定时器 或者清除事件绑定
+          alert('销毁前')
+      },
+      destroyed(){
+          alert('销毁后')
+      },
+  });
+  vm.$mount('#app');//第3步.要保证有编译的元素
+  vm.$destroy();  //告诉他去死
+</script>
+</body>
+</html>

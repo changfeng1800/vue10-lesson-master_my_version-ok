@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>zhu http://www.zhufengpeixun.cn</title>
+  <link rel="stylesheet" href="node_modules/_animate.css@3.6.1@animate.css/animate.css">
+</head>
+<body>
+<div id="app"></div>
+
+<script src="node_modules/_vue@2.5.16@vue/dist/vue.js"></script>
+<script src="./promise/4.promise-ajax.js"></script>
+<script>
+  
+  let vm = new Vue({
+      el:'#app',
+      created(){
+        ajax({url:'./carts.json'}).then((res)=>{
+          console.log('res',res)
+        },(err)=>{
+          console.log('err',err)
+        })
+      },
+      data:{
+          products:[]
+      }
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!-- 3-3 mp4  公司20180614 -->
+<!-- 读文档：计算属性和观察者 -->
+<!-- computed vs method :有无缓存 -->
+<!--computed  vs watch:watch需要watch多个参数，watch用于异步， -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <input type="text" v-model="val"> {{fullName}}
+</div>
+<script src="node_modules/_vue@2.5.16@vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        computed:{
+          //用watch也可以，但是要watch  3个参数，没有异步逻辑就不要用watch好了
+          //computed 一步搞定
+          fullName(){
+              return this.firstName+this.val+this.lastName;
+          }
+        },
+        data:{
+            firstName:'zfpx',
+            lastName:'jw',
+            val:'',
+        }
+    })
+</script>
+</body>
+</html>
+

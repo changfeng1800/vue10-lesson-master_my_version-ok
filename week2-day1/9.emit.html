@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>zhu http://www.zhufengpeixun.cn</title>
+</head>
+<body>
+<div id="app">
+  父亲：{{money}}
+  <!--child.$on('child-msg',things)-->
+  <child :m="money" @child-msg="things"></child>
+</div>
+<script src="node_modules/_vue@2.5.16@vue/dist/vue.js"></script>
+<!--父亲绑定一些事件，儿子触发这个事件 将参数传递过去 单向数据流，父亲数据刷新 儿子就刷新-->
+<script>
+  let vm = new Vue({
+      el:'#app',
+      data:{money:400},
+      methods:{things(val){this.money = val;}}, //要多少钱给多少钱，money一变，又自动传了一次，更新
+      components:{
+          child:{
+              props:['m'],  //props array 写法
+              template:'<div>儿子:{{m}} <button @click="getMoney()">多要钱</button></div>',
+              methods:{
+                  getMoney(){
+                      this.$emit('child-msg',800);// 触发自己的自定义事件，让父亲的方法执行
+                  }
+              }
+          }
+      }
+  })
+
+//ok
+//video:???
+//发布订阅模式
+//精彩：多要钱：子组件不能直接修改父组建传过来的数据，但是可以emit给父组件，父组件收到后更新，子组件数据会自动刷新。
+//子组件接收，props:['m'] 
+
+
+</script>
+</body>
+</html>

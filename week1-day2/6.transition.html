@@ -1,0 +1,39 @@
+
+<!--  2-11.动画.mp4   github里面搜索 animate.css-->
+<!-- save会自动记到小本上，现在新版本8以上的会自动，这个也没用写了 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>zhu http://www.zhufengpeixun.cn</title>
+  <link rel="stylesheet" href="node_modules/_animate.css@3.6.1@animate.css/animate.css">
+
+  <!--  animate库 css库  -->
+  <style>
+    div>div{
+      width: 100px;height: 100px;background: red;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <button @click="flag=!flag">切换</button>
+  <!-- animate.css 类名写过来，没什么技术含量 -->
+  <transition enter-active-class="animated bounceInUp" leave-active-class="animated hinge">   
+    <div v-if="flag">我爱你</div>
+  </transition>
+
+
+</div>
+<script src="node_modules/_vue@2.5.16@vue/dist/vue.js"></script>
+<script>
+  let vm = new Vue({
+      el:'#app',
+      data:{
+          flag:true
+      }
+  })
+</script>
+</body>
+</html>

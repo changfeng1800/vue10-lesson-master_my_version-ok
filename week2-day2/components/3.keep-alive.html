@@ -1,0 +1,57 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <!--template slot transition -->
+  <input type="radio" v-model="radio_temp" value="home">home
+  <input type="radio" v-model="radio_temp" value="list">list
+  <!--一般用作缓存：为的是后面的路由做准备，如果缓存了就不会再走created mounted钩子函数-->
+
+  <!-- keep-alive不会导致每次都销毁了 每次都走mounted了，有好处也有不好处，会增加性能的消耗 -->
+  <keep-alive>
+      <!-- component是vue自带的,动态组件，绑定的组件可以变的 -->
+    <component :is="radio_temp"></component>
+  </keep-alive>
+</div>
+<script src="../node_modules/_vue@2.5.16@vue/dist/vue.js"></script>
+<script>
+    let home = {    //list名字和radio里面的value="list"
+        template:'<div>home</div>',
+        mounted(){alert('挂载home')}, //页面一创建执行一次
+        beforeDestroy(){alert('销毁home')},
+        updated(){alert('update Home')},
+    };
+    let list = {    //list名字和radio里面的value="list"
+        template:'<div>list</div>',
+        mounted(){alert('挂载list')},
+        beforeDestroy(){alert('销毁list')},
+        updated(){alert('update List')},
+    };
+    let vm = new Vue({
+        el:'#app',
+        data:{radio_temp:'home'},
+        components:{
+            home,list
+        },
+
+    })
+
+// ok
+// 5-2  mp4
+// 第一次测试不到效果 vue.js没找到，要在目录前面加上../ 
+// radio 用法 
+// DOM结构相同，会复用，所以created,mounted，页面渲染只走一次，updated到是会走多次,但是不知道哪个updated,还不如用watch
+// 如果DOM结构不同，会不停的destroy,所以mounted会重新执行
+// <keep-alive> 自带组件，知道要缓存,这样mounted就只走一次了
+
+</script>
+</body>
+</html>
+

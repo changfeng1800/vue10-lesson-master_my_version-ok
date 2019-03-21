@@ -1,0 +1,62 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <loading ref="load"></loading>
+</div>
+<script src="../node_modules/_vue@2.5.16@vue/dist/vue.js"></script>
+<script>
+    // 父组件调用子组件里面的method
+    let loading = { //这只是一个变量噢???
+          data(){
+              return {flag:true}
+          },
+          template:'<div v-show="flag">疯狂加载中。。。</div>',
+          methods:{
+              hide(){
+                  this.flag = false;
+              }
+          }
+    };
+    let vm = new Vue({
+        el:'#app',
+        //created不行，DOM还没加载完成
+        created(){
+            debugger
+            this.$refs.load.hide()    //此处无效
+            // this.$refs.load.$el.style.background = 'red'    //此处无效
+        },
+        
+        mounted(){ // ref 如果放在组件上 获取的是组件的实例 并不是组件的dom元素
+            //   this.$refs.load.hide()     //这也太神奇了吧
+              debugger
+              this.$refs.load.$el.style.background = 'red'   //这更神奇了吧
+        },
+        data:{},
+        components:{
+          loading   //变量直接做component???
+        }
+    })
+
+// ok
+// 5-1 mp4 -->
+// 第一次测试不到效果 vue.js没找到，要在目录前面加上../
+// 父组件也可调用子组件的method,方法：在子组件上加上 ref="",然后 this.$refs.namexxx.fn()
+// 还可以这样 this.$refs.load.$el.style.background = 'red'
+// 操作DOM，要在mounted里面，这里DOM才加载完成
+
+
+</script>
+</body>
+</html>
+
+
+//
+

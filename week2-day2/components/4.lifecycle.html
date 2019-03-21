@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <child ref="child"></child>
+</div>
+<!--子组件和父组件同时拥有mounted方法 会先走谁？-->
+<!--需要等待子组件挂载完成后在触发父组件的挂载-->
+<template id="child">
+    <div>
+        <li v-for="a in arr">{{a}}</li>
+    </div>
+</template>
+<script src="../node_modules/_vue@2.5.16@vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        mounted(){
+            alert('parent mounted second')
+           console.log('el.innerHTML',this.$refs.child.$el.innerHTML);  //拿到旧值，DOM还没渲染完
+            console.log('data.arr',this.$refs.child.$data.arr);      //这个是最新值，因为这是数据
+            this.$nextTick(()=>{ // 想操作dom 就加一个nextTick
+                console.log('nextTick',this.$refs.child.$el.innerHTML);    //this.$nextTick会等DOM渲染完成，再goon
+            })
+        },
+        components:{
+            child:{
+                template:'#child',
+                data(){
+                  return {arr:[1,2,3]}
+                },
+                mounted(){
+                    alert('child mounted first')
+                   this.arr = [4,5,6] // 此处是异步渲染dom，没有等DOM渲染完成
+                }
+            }
+        }
+    })
+
+// ok
+// 5-2  mp4
+// 两个mounted，先走哪一个? 先子-> 再父组件（因为要等子挂载完成，父才算完成）
+// 获取DOM的动作，要等DOM渲染完才行,DOM渲染是异步的，不然拿到的是旧值，Data到是可以马上拿.
+// 等待DOM渲染用 this.$nextTick
+// 获取DOM用 ref给DOM加上name
+// 获取DOM this.$refs.child.$el.innerHTML  this.$refs.child.$data.arr 
+
+</script>
+</body>
+</html>
+

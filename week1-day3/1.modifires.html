@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>zhu</title>
+</head>
+<body>
+<div id="app">
+  <!--stopPropagation 阻止事件传播-->
+  <!-- 自己做笔记啊：self stop ??? --> 
+  <div @click.once="parent">parent
+    <div @click.self="child">child
+      <div @click.stop="grandson">grandson</div>
+    </div>
+  </div>
+  <a href="http://www.zhufengpeixun.cn" @click.prevent="parent">去zhu</a>
+</div>
+<script src="node_modules/_vue@2.5.16@vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        methods:{
+          parent(){alert('parent')},
+          child(){alert('child')},
+          grandson(e){ alert('grandson');}
+        },
+        data:{}
+    })
+</script>
+</body>
+</html>
+
+
+<!-- 1（需要看视频，不明白）  2  3  4  5  6  7  8  9  10  todo?(再看视频，相当多的知识点)   -->
+

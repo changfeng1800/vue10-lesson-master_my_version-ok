@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <router-link to="/home">首页</router-link>
+    <router-link to="/detail">详情页</router-link>
+    <router-view></router-view>
+</div>
+<template id="detail">
+    <div>
+        <router-link to="/detail/profile">个人中心</router-link>
+        <router-link to="/detail/about">关于我</router-link>
+        <router-view></router-view>
+        <!-- 再写个router-view -->
+    </div>
+</template>
+<script src="node_modules/_vue@2.5.16@vue/dist/vue.js"></script>
+<script src="node_modules/_vue-router@3.0.1@vue-router/dist/vue-router.js"></script>
+<script>
+    let home = {template:'<div>home</div>'};
+    let detail = {template:'#detail'};
+    let profile = {template:'<div>profile</div>'};
+    let about = {template:'<div>about</div>'};
+    let routes = [
+        {
+            path:'/home',
+            component:home},
+        {
+            path:'/detail',
+            component:detail,
+            children:[ // children中的路径永远不带 '/'，如果带/表示是1级路由,出不来两级!!!
+                {path:'profile',component:profile},
+                {path:'about',component:about}
+            ]
+        },
+    ];
+    let router = new VueRouter({
+        routes
+    });
+    let vm = new Vue({
+        el:'#app',
+        router, //不放这，路径和实例没有关系
+    });
+
+// ok
+// 5-7 .mp4
+// 11:00 这里才开始讲多级路由
+// 二级路由
+
+</script>
+</body>
+</html>
+

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="node_modules/_animate.css@3.6.1@animate.css/animate.css">
+</head>
+<body>
+<div id="app">
+    <router-link to="/home">首页</router-link>
+    <router-link to="/list">列表页</router-link>
+    <!--mode="out-in"动画的模式-->
+        <transition enter-active-class="animated fadeIn"
+                    leave-active-class="animated fadeOut"
+        >
+            <!--要缓存谁 就把谁包起来即可-->
+            <keep-alive>
+                <router-view style="position: absolute;top:50%;left: 10%;width: 100%"></router-view>
+            </keep-alive>
+        </transition>
+</div>
+<script src="node_modules/_vue@2.5.16@vue/dist/vue.js"></script>
+<script src="node_modules/_vue-router@3.0.1@vue-router/dist/vue-router.js"></script>
+<script>
+    let home = {template:'<div style="background: red">首页</div>'};
+    let list = {template:'<div style="background: green">列表</div>'};
+    let routes = [
+        {path:'/home',component:home},
+        {path:'/list',component:list},
+    ];
+    let router = new VueRouter({
+        routes
+    })
+    let vm = new Vue({
+        el:'#app',
+        router
+    })
+
+// 视频忘记看了,要看一下
+// 5-10 mp4
+// 路由切换transition
+
+
+
+</script>
+</body>
+</html>
+

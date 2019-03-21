@@ -1,0 +1,47 @@
+
+////ok
+
+<template>
+  <div class="header">
+    <!-- 注意这里有个slot -->
+    <slot></slot>
+                                  <!-- 返回按键，想有就有，想无就无 -->
+    <i class="iconfont icon-fanhui" v-if="back" @click="goBack"></i>
+  </div>
+</template>
+<script>
+    export default {
+        props:{
+            back:{
+                type:Boolean,
+                default:false
+            }
+        },
+        methods:{
+          //点下后退，回到上一页
+          goBack(){
+              this.$router.go(-1);
+          }
+        }
+    }
+</script>
+<style scoped lang="less">
+  .header{
+    /*位置定位用position*/
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100%;
+    background: #afd9ee;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-weight: bold;
+    i{
+      position: absolute;
+      left: 10px;
+      font-size: 20px;
+    }
+  }
+</style>
+

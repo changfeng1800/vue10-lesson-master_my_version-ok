@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--如果用对象作为to的属性，并且使用了参数 必须给路由起个名字，通过名字跳转-->
+    <!-- name:'pro' -->
+    <router-link :to="{name:'pro',params:{c:1,a:2}}">商品1</router-link>
+    <router-link to="/article/2/b">商品2</router-link>
+    <router-link to="/article/3/c">商品3</router-link>
+    <router-view></router-view>
+</div>
+<script src="node_modules/_vue@2.5.16@vue/dist/vue.js"></script>
+<script src="node_modules/_vue-router@3.0.1@vue-router/dist/vue-router.js"></script>
+<script>
+    let article = {
+        template:'<div>第 {{$route.params.c}} 篇文章</div>',
+        created(){ // 默认调用一次created,上个DIV和下个DIV结构一样，会复用，组件不会销毁，所以created只会走一次。updated到是会多次，但是，别的变了，也会走一次
+            alert('来个ajax');
+        },
+        watch:{ // 路径参数发生变化 监控参数的变化来发送ajax。监控谁啊 $route.params.c会变
+            $route(){
+                alert('$route变化，来个ajax' + this.$route.params.c); //把变化的数据打印出来
+            }
+        }
+    };
+    let routes = [
+        {path:'/article/:c/:a',component:article,name:'pro'}
+    ];
+    let router = new VueRouter({
+        routes
+    });
+    let vm = new Vue({
+        el:'#app',
+        router
+    })
+
+
+// ok
+// video ???
+// 另一种写法:to 后面写法不一样.直接以对象形式传过去，要加name property
+// video: 带参数，传给组件，以对象形式，访问用 this.$route.params.xxx
+// watch: $route,可以监控参数发生变化
+// 第一次执行created, 其它再点$route变化，会执行watch
+
+
+
+</script>
+</body>
+</html>
+
