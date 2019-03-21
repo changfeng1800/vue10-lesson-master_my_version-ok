@@ -31,8 +31,6 @@ To github.com:changfeng1800/vue10-lesson-master_my_version-ok.git
 Branch 'master' set up to track remote branch 'master' from 'origin'.
 
 
-
-
 ## 本地提交
 - README.md
 - 创建一个.gitignore
@@ -57,10 +55,12 @@ git push origin master  :推送要输入user和password,如果是以前输入过
 ```
 
 ## 拉取最新的代码
-冲突：1. 在github edit 提交了一次，但是本地没变，这时本地比网上版本底，执行git push就是报错，
+- 冲突：1. 
+在github edit 提交了一次，但是本地没变，这时本地比网上版本底，执行git push就是报错，
 ! [rejected]        master -> master (fetch first)
 error: failed to push some refs to 'git@github.com:changfeng1800/git-test-node.git'
-原因线上线下不一样，提示要先git pull origin master(fetch+merge)一次到本地，再push,这里类似把线上代码merge到本地了一次，会提示
+原因线上线下不一样，提示要先git pull origin master(fetch+merge)拉一次到本地，
+再push,这里类似把线上代码merge到本地了一次，会提示
 Merge branch 'master' of github.com:changfeng1800/git-test-node
 
 # Please enter a commit message to explain why this merge is necessary,
@@ -70,7 +70,8 @@ Merge branch 'master' of github.com:changfeng1800/git-test-node
 # the commit.
 意思是要写一个message,上面是默认的，可以改，改完esc :wq
 
-冲突：2,先改线上index.js第一行，提交。再改本地index.js第一行,提交。
+- 冲突：2,
+先改线上index.js第一行，提交。再改本地index.js第一行,提交。
      然后，git add .   -> git commit -m 'update basic index.js' ->   git push origin master 又是报错，跟上次一样
      ! [rejected]        master -> master (fetch first)
 error: failed to push some refs to 'git@github.com:changfeng1800/git-test-node.git'
