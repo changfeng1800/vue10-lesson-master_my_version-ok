@@ -62,12 +62,6 @@ error: failed to push some refs to 'git@github.com:changfeng1800/git-test-node.g
 原因线上线下不一样，提示要先git pull origin master(fetch+merge)拉一次到本地，
 再push,这里类似把线上代码merge到本地了一次，会提示
 Merge branch 'master' of github.com:changfeng1800/git-test-node
-
-# Please enter a commit message to explain why this merge is necessary,
-# especially if it merges an updated upstream into a topic branch.
-#
-# Lines starting with '#' will be ignored, and an empty message aborts
-# the commit.
 意思是要写一个message,上面是默认的，可以改，改完esc :wq
 
 - 冲突：2,
