@@ -5,11 +5,15 @@
 - brew install node
 
 > 安装后重新启动cmd命令行，NVM for mac,
-nvm-win
+nvm-win  (管理安装多版本node N2-1:9)
 
 ## 配置环境变量的过程
 - add to path
-- 我的电脑 -> 属性-> 环境变量 -> path
+- 我的电脑 -> 属性-> 高级系统设置 -> 环境变量 -> path
+    ```
+    1、分隔符用分号
+    2、配好重启cmd
+    ```
 
 ## 用node运行一个js文件
 - 控制台中运行文件
