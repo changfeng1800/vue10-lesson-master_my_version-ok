@@ -1,0 +1,61 @@
+
+<!DOCTYPE>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Welcome</title> 
+
+</head>
+<style>
+    /* div删除线的css样式   因为position属性会出现浏览器兼容问题（本热测试，在火狐生效，在谷歌不起作用），所以替换成 margin属性来控制删除线的位置*/
+     .weba{
+       width: 870px;
+       height: 1px;
+       background: red;
+       margin-left: -872px;
+       margin-top: 16px;  
+       z-index: 9999;
+       display: inline-block;    
+   }
+   .delx{
+      position:relative;
+   }
+</style>
+<body class="skin_blue">
+    <div class="main report">
+        <div class="search"></div>
+        <table class="list table">
+            <thead>
+                <tr>
+                    <th>订单号</th>
+                    <th>时间</th>
+                  
+                </tr>
+            </thead>
+            <tbody>
+                
+                    <tr class="weba">
+                        <td class=""  align="center">1111</td>
+                        <td class="" align="center"><fmt:formatDate  pattern="yyyy-MM-dd HH:mm:ss" />2222</td>
+                     
+                    </tr>
+                
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th>总计</th>
+                    <td>0</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="page_info"><form action="<%=ctx%>/order/query" method="post" id="beanForm"></form></div>
+    </div>
+</body>
+
+</html>
