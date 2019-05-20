@@ -37,7 +37,7 @@ git rm --cached 文件名
 
 ## 添加到暂存区
 ```
-git add ./ -A / 文件名
+git add ./ -A / 文件名   
 ```
 
 ## 添加到历史区
@@ -61,8 +61,9 @@ git reset HEAD 文件名 回到上一次的缓存区
 ## 回滚历史版本
 ```
 git log:查看版本，///如果后面的冒号，按Q退出
+git log --oneline
 git reset --hard 版本号
-git reflog 查看所有版本
+git reflog 查看所有版本     ///当穿越回到旧版本之后，git log最新的版本就看不到了，
 ```
 
 ## 回滚某个版本的文件
@@ -106,7 +107,7 @@ git stash pop 还原暂存的内容
 ## 合并分支
 ```
 git merge 分支名  ：这是fast-forward,箭头马上指过去了
-合并有可能有冲突：改同一个文件就会有，怎么办？
+合并有可能有冲突：改同一个文件就会有，怎么办？冲突一个个检查
 ```
 
 ## echo输入文件内容 N1-6 start

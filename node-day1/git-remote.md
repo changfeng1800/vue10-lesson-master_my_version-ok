@@ -40,9 +40,9 @@ Branch 'master' set up to track remote branch 'master' from 'origin'.
 
 ## 关联远程仓库
 ```
-git remote add origin 地址 ////origin是这个地址起的别名，因为地址很长不好记 ，这里只是git 和仓库关联，下面的Push才是推代码
+git remote add origin 地址 ///origin是这个地址起的别名，因为地址很长不好记 ，这里只是git 和仓库关联，下面的Push才是推代码
 git push -u origin master   ///-u 下次直接用git push就可以了
-git remote -v  ////看远程仓库
+git remote -v  ///查看关联远程仓库
 ```
 
 ## 删除关联
@@ -58,11 +58,11 @@ git push origin master  :推送要输入user和password,如果是以前输入过
 
 ## 拉取最新的代码
 - 冲突：1. 
-在github edit 提交了一次，但是本地没变，这时本地比网上版本底，执行git push就是报错，
+在github edit 提交了一次，但是本地没变，这时本地比网上版本低，执行git push就是报错，
 ! [rejected]        master -> master (fetch first)
 error: failed to push some refs to 'git@github.com:changfeng1800/git-test-node.git'
 原因线上线下不一样，提示要先git pull origin master(fetch+merge)拉一次到本地，
-再push,这里类似把线上代码merge到本地了一次，会提示
+再push,这里类似把线上代码merge到本地了一次，git pull后会提示：
 Merge branch 'master' of github.com:changfeng1800/git-test-node
 意思是要写一个message,上面是默认的，可以改，改完esc :wq
 
