@@ -1,7 +1,9 @@
+///视频里面如何转base64
+
 // base64 进制转化
 // 10-> 16 2 8
 // 16 2 8 ->10
-let buf = Buffer.from('珠');
+let buf = Buffer.from('珠');       
 // 把一个汉字的24位 转换成4个字节，每个字节就6位，不足的补0
 console.log(buf);
 //1.把16进制转化成2进制 toString()
