@@ -17,9 +17,12 @@ for(let i =0;i<arr.length;i++){ // 编程式
 arr.forEach(function (item) { // 声明式（不关心如何实现）
     console.log(item);
 });
-for(let key in arr){ // key会变成字符串类型，包括数组的私有属性也可以打印出来
+for(let key in arr){ // key会变成字符串类型???，包括数组的私有属性也可以打印出来(这个可以遍历object)
     console.log(key);
+    console.log(typeof key)
 }
+
+object-> array ： Objejct.keys
 
 //2)filter 是否操作原数组： 不  返回结果： 过滤后的新数组   回调函数的返回结果： 如果返回true 表示这一项放到新数组中      (删除)
 let newAry = [1,2,3,4,5].filter(function (item) {
