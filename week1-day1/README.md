@@ -1,5 +1,6 @@
+
 ## vue数据驱动(操作数据)
-- 操作dom
+- jQuery操作dom
 
 ## JS数据类型
 - 基本 number sting boolean null undefined
