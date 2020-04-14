@@ -10,7 +10,8 @@
 <body>
 <div id="app">
     <!--表单元素 input checkbox textarea radio select-->
-    <!--vue的“指令”directive 只是dom上的行间属性,vue给这类属性赋予一定都以v-开头,value属性默认情况下会vue忽略掉 selected checked 都没有意义-->
+    <!--vue的“指令”directive 只是dom上的行间属性,vue给这类属性赋予一定都以v-开头,value属性默认情况下会vue忽略掉 selected checked 都没有意义 指令以v-开头 value属性默认情况下被vue忽略掉 selected checked都没有意义 -->
+    
     <!--v-model会将msg的值会赋予输入框，输入框的值改变了会影响数据-->
     <input type="text" v-model="msg">
 
