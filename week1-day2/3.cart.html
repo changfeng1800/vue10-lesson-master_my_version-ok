@@ -1,4 +1,5 @@
 <!-- me:2-7 2-8  2-9  .mp4 -->
+<!-- 任务20：2-8.mp4 购物车删除功能 -->
 <!-- 这个不看了，直接看4.computed好了 -->
 
 <!DOCTYPE html>
@@ -119,7 +120,8 @@
           },                                                          //对象比较空间地址OK,不是比值 {} === {} 这个永远不同，不同地址，对象和对象不能比较
 
           getData(){ // 初始化方法
-              // Promise 解决回调问题的
+              // Promise 
+              ///回调函数this都是window
               axios.get('./carts.json').then(res=>{ //success
                   console.log('carts.json')
                   console.log(res.data)

@@ -1,3 +1,5 @@
+// 任务17.mp4：2-5.promise-ajax
+
 // resolve代表的是转向成功态
 // reject代表的是转向失败态   resolve和reject均是函数
 // promise的实例就一个then方法,then方法中有两个参数

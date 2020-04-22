@@ -9,7 +9,7 @@
 <div id="app2">{{'hello' | my}}</div>
 <script src="node_modules/_vue@2.5.16@vue/dist/vue.js"></script>
 <script>
-  Vue.filter('my',data=>{ // 全局过滤器,过滤器要放在页面的顶部
+  Vue.filter('my',data=>{ // 全局过滤器,过滤器要放在页面的顶部,实例上才有
       return 'jw'+data;
   });
   new Vue({
