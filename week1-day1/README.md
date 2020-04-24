@@ -9,7 +9,7 @@
 
 ## {} []
 ### 数组的变异(括号中的能改变原数组)
-- 操作数组的方法 (push pop shift unshift  splice reverse sort indexOf lastIndexof concat slice join
+- 操作数组的方法 (push pop shift unshift  splice reverse sort) indexOf lastIndexof concat slice join
 
 ## forEach filter map find some every includes reduce
 
