@@ -52,7 +52,7 @@ filters:{
 - 3-5.路由.mp4 啥意思???
 ## 实现单页开发的方式
 - 通过hash记录跳转的路径 (可以产生历史管理)
-- 浏览器自带的历史管理的方法history (history.pushState())可能会导致404错误
-- history.go()
+- 浏览器自带的历史管理的方法history (history.pushState('','','/d'))(需要服务端配合)可能会导致404错误
+- history.go() : -1后退一步 / 1前进一步
 
 > 开发时使用hash的方式 上线的话我们会使用history的方式
